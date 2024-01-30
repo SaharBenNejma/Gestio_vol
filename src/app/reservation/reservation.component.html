@@ -1,0 +1,26 @@
+<!-- reservation.component.html -->
+<div class="container mt-4">
+  <div class="mb-3">
+    <label for="clientName" class="form-label">Nom:</label>
+    <input type="text" class="form-control" id="clientName" [(ngModel)]="clientName" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="passportNumber" class="form-label">Numéro de Passeport:</label>
+    <input type="text" class="form-control" id="passportNumber" [(ngModel)]="passportNumber" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">E-mail:</label>
+    <input type="email" class="form-control" id="email" [(ngModel)]="email" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="vols" class="form-label">Sélectionner un vol:</label>
+    <select class="form-select" id="vols" [(ngModel)]="selectedVol" required>
+      <option *ngFor="let vol of vols" [value]="vol">{{ vol.reference }} - {{ vol.depart }} à {{ vol.destination }}</option>
+    </select>
+  </div>
+
+  <button (click)="reserve()" class="btn btn-primary">Réserver</button>
+</div>

@@ -1,0 +1,72 @@
+<!-- administration.component.html -->
+
+<div class="container administration">
+  <h2 class="display-4">Gestion des Billets</h2>
+
+  <!-- Ajout d'un nouveau billet -->
+  <div class="mt-4">
+    <h3 class="mb-3">Ajouter un Nouveau Billet</h3>
+    <form (submit)="addBillet()">
+      <div class="mb-3">
+        <label for="code" class="form-label">Code:</label>
+        <input type="text" class="form-control" id="code" name="code" [(ngModel)]="newBillet.code" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="prix" class="form-label">Prix:</label>
+        <input type="number" class="form-control" id="prix" name="prix" [(ngModel)]="newBillet.prix" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="classe" class="form-label">Classe:</label>
+        <select class="form-select" id="classe" name="classe" [(ngModel)]="newBillet.classe" required>
+          <option value="Première classe">Première classe</option>
+          <option value="Deuxième classe">Deuxième classe</option>
+          <option value="Classe VP">Classe VP</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Ajouter Billet</button>
+    </form>
+  </div>
+
+  <!-- Liste des billets -->
+  <div class="mt-4">
+    <h3 class="mb-3">Liste des Billets</h3>
+
+    <!-- Barre de recherche -->
+    <div class="mb-3">
+      <label for="search" class="form-label">Recherche:</label>
+      <input type="text" class="form-control" id="search" name="search" [(ngModel)]="searchQuery" (input)="searchBillets()">
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let billet of billets">
+        {{ billet.code }} - {{ billet.prix }} - {{ billet.classe }}
+        <button (click)="updateBillet(billet)" class="btn btn-secondary btn-sm">Modifier</button>
+        <button (click)="deleteBillet(billet.code)" class="btn btn-danger btn-sm">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Liste des Réservations -->
+  <div class="mt-4">
+    <h3 class="mb-3">Liste des Réservations</h3>
+
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let reservation of reservations">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <strong>Nom:</strong> {{ reservation.clientName }} <br>
+            <strong>Email:</strong> {{ reservation.email }} <br>
+            <strong>Numéro de Passeport:</strong> {{ reservation.passportNumber }} <br>
+            <strong>Vol:</strong> {{ reservation.selectedVol?.reference }} - {{ reservation.selectedVol?.depart }} à {{ reservation.selectedVol?.destination }}
+          </div>
+          <div>
+            <button (click)="deleteReservation(reservation)" class="btn btn-danger btn-sm">Supprimer Réservation</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

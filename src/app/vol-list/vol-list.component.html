@@ -1,0 +1,59 @@
+<!-- vol-list.component.html -->
+
+<div class="container vol-list mt-4">
+  <h2>Liste des Vols</h2>
+
+  <!-- Ajout d'un nouveau vol -->
+  <div class="mb-3">
+    <h3>Ajouter un Nouveau Vol</h3>
+    <form (submit)="addVol()">
+      <div class="mb-3">
+        <label for="reference" class="form-label">Référence:</label>
+        <input type="text" class="form-control" id="reference" name="reference" [(ngModel)]="newVol.reference" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="dateHeureVol" class="form-label">Date et Heure de Vol:</label>
+        <input type="datetime-local" class="form-control" id="dateHeureVol" name="dateHeureVol" [(ngModel)]="newVol.dateHeureVol" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="referenceAvion" class="form-label">Référence de l'Avion:</label>
+        <select class="form-select" id="referenceAvion" name="referenceAvion" [(ngModel)]="newVol.referenceAvion" required>
+          <option *ngFor="let avion of avions" [value]="avion">{{ avion }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="depart" class="form-label">Départ:</label>
+        <input type="text" class="form-control" id="depart" name="depart" [(ngModel)]="newVol.depart" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="destination" class="form-label">Destination:</label>
+        <input type="text" class="form-control" id="destination" name="destination" [(ngModel)]="newVol.destination" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Ajouter Vol</button>
+    </form>
+  </div>
+
+  <!-- Liste des vols -->
+  <div>
+    <h3>Liste des Vols</h3>
+
+    <!-- Barre de recherche -->
+    <div class="mb-3">
+      <label for="search" class="form-label">Recherche:</label>
+      <input type="text" class="form-control" id="search" name="search" [(ngModel)]="searchQuery" (input)="searchVols()">
+    </div>
+
+    <ul class="list-group">
+      <li *ngFor="let vol of vols" class="list-group-item">
+        {{ vol.reference }} - {{ vol.dateHeureVol }} - {{ vol.referenceAvion }} - {{ vol.depart }} - {{ vol.destination }}
+        <button (click)="updateVol(vol)" class="btn btn-warning">Modifier</button>
+        <button (click)="deleteVol(vol.reference)" class="btn btn-danger">Supprimer</button>
+      </li>
+    </ul>
+  </div>
+</div>
